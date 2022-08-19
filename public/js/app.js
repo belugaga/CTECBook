@@ -13,4 +13,6 @@ var bookwormBWImage = 'images/bookworm_bw.jpg';
 var bookwormImage = 'images/bookworm.jpg';
 var rating = 0;
 
+var profile = []
+
 

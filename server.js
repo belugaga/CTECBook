@@ -20,6 +20,7 @@ app.route('/users').post(userController.addUser);
 app.route('/users').put(userController.updateUser);
 app.route('/users/:id').delete(userController.deleteUser);
 app.route('/login').post(userController.loginUser);
+app.route('/getuser').post(userController.getUser);
 
 app.listen(8080, "127.0.0.1"); // start the nodejs to be listening for incoming request @ port 8080
 console.log("web server running @ http://127.0.0.1:8080"); // output to console 

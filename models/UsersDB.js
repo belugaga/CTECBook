@@ -3,7 +3,7 @@
 var db = require('../db-connections');
 class UsersDB{
     getAllUsers(callback){
-        var sql = "SELECT username from book_review.user";
+        var sql = "SELECT username FROM book_reiview.user";
         db.query(sql, callback);
     }
 
@@ -27,6 +27,11 @@ class UsersDB{
         var sql = "DELETE from user WHERE username = ?";
         return db.query(sql, [userID], callback);
     }
+
+    getUser(username, callback) {
+        var sql = "SELECT DISTINCT username, name, email FROM user WHERE username = ?";
+        db.query(sql, [username], callback)
+      }
 }
 
 module.exports = UsersDB;

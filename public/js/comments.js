@@ -1,4 +1,24 @@
+$(document).ready(function(){
+
+  var getAProfile = new XMLHttpRequest;
+  var token = sessionStorage.getItem("token");
+
+  getAProfile.open("POST", "/getuser", true)
+  getAProfile.setRequestHeader("Content-Type","application/json");
+  getAProfile.onload = function(){
+      var profile = JSON.parse(getAProfile.responseText);
+      console.log(getAProfile.responseText);
+      username2 = profile[0].username;
+      
+  }
+
+  var payload = {token:token};
+  getAProfile.send(JSON.stringify(payload));
+})
+
 function fetchComments() {
+
+
   var request = new XMLHttpRequest();
 
   request.open("GET", comment_url, true);
@@ -72,11 +92,12 @@ function showBookComments(element) {
 
 function newComment() {
   var token = sessionStorage.getItem("token");
+  
   //Initialise each HTML input elements in the modal window with default value.
   if (token != null) {
     rating = 0;
     document.getElementById("userComments").value = "";
-    document.getElementById("nickname").value = usernameComment;
+    document.getElementById("nickname").value = username2;
 
   } else {
     $('#failModal').modal({backdrop: 'static', keyboard: false});
@@ -167,11 +188,17 @@ function editComment(element) {
   var item = element.getAttribute("item");
 
   currentIndex = item;
-
-  document.getElementById("editnickname").value = comment_array[item].usernameFK;
-  document.getElementById("edituserComments").value =comment_array[item].review;
-  console.log(comment_array[item].rating);
-  displayColorBookworm("editbook", comment_array[item].rating);
+  
+  abc = comment_array[item].usernameFK;
+  document.getElementById("editnickname").value = abc;
+  
+  if(abc == username2){
+    document.getElementById("edituserComments").value = comment_array[item].review;
+    console.log(comment_array[item].rating);
+    displayColorBookworm("editbook", comment_array[item].rating);
+  } else{
+    $('#failModal').modal({backdrop: 'static', keyboard: false});
+  }
 }
 
 //This function displayS the correct number of colored popcorn
@@ -207,18 +234,21 @@ function updateComment() {
 function deleteComment(element) {
 
   var item = element.getAttribute("item");
-
-  var response = confirm("Are you sure you want to delete this comment?");
-  if (response == true) {
-    var item = element.getAttribute("item"); 
-    var delete_comment_url = comment_url + "/" + comment_array[item]._id;
-    var eraseComment = new XMLHttpRequest();
-    eraseComment.open("DELETE", delete_comment_url, true);
-    eraseComment.onload = function() {
-      fetchComments();
-    };
-    eraseComment.send();
-  
+  var commentOwner = comment_array[item].usernameFK;
+  if(commentOwner == username2){
+    var response = confirm("Are you sure you want to delete this comment?");
+    if (response == true) {
+      var item = element.getAttribute("item"); 
+      var delete_comment_url = comment_url + "/comments/" + comment_array[item]._id;
+      var eraseComment = new XMLHttpRequest();
+      eraseComment.open("DELETE", delete_comment_url, true);
+      eraseComment.onload = function() {
+        fetchComments();
+      };
+      eraseComment.send();
+    }
+  } else {
+    $('#failModal').modal('show');
   }
 }
 

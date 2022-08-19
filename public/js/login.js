@@ -8,7 +8,6 @@ function loginMe(){
 
         $('#loginModal').modal('hide');
         var token = JSON.parse(loginUser.responseText);
-        console.log(token.result);
 
         if(token.result != "invalid"){
             $('#successModal').modal('show');
@@ -17,6 +16,7 @@ function loginMe(){
             document.getElementById("logoutMenu").style.display="block";
             document.getElementById("editMenu").style.display="block";
             sessionStorage.setItem("token", token.result);
+            window.location.reload("index.html");
         }
         else{
             $('#failModal').modal('show');

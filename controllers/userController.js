@@ -41,9 +41,12 @@ function loginUser(request, respond){
     
     usersDB.loginUser(username, function(error, result){
         if (error){
+            console.log(result)
             respond.json(error);
+            
         }
         else{
+            console.log(result[0].password)
             var flag = result[0].password;
             if (flag == password) {
                 var token = jwt.sign(username, secret)
@@ -90,4 +93,23 @@ function deleteUser(request, respond){
     });
 }
 
-module.exports = {getAllUsers, addUser, updateUser, deleteUser, loginUser};
+function getUser(request, respond) {
+    var token = request.body.token;
+  
+    try {
+      var decoded = jwt.verify(token, secret);
+      usersDB.getUser(decoded, function (error, result) {
+        if (error) {
+          respond.json(error);
+        } else {
+          respond.json(result);
+        }
+      });
+      
+    } catch (err) {
+      respond.json({ result: "invalid token" });
+    }
+    
+  }
+
+module.exports = {getAllUsers, addUser, updateUser, deleteUser, loginUser, getUser};
