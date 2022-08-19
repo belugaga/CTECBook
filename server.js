@@ -1,4 +1,5 @@
 var express = require("express"); //using the express web framework
+const port = 5000;
 
 var bookController = require('./controllers/bookController'); // set movieController to the movieController class
 var commentController = require('./controllers/commentController');
@@ -22,5 +23,5 @@ app.route('/users/:id').delete(userController.deleteUser);
 app.route('/login').post(userController.loginUser);
 app.route('/getuser').post(userController.getUser);
 
-app.listen(8080, "127.0.0.1"); // start the nodejs to be listening for incoming request @ port 8080
-console.log("web server running @ http://127.0.0.1:8080"); // output to console 
+app.listen(port, () => console.log(`Example app listening on port ${port}!`)); // start the nodejs to be listening for incoming request @ port 8080
+//console.log("web server running @ http://127.0.0.1:8080"); // output to console 
