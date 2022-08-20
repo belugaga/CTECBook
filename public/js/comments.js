@@ -73,7 +73,7 @@ function showBookComments(element) {
       var star = "";
       for (var j = 0; j < comment_array[i].rating; j++) {
         console.log(i);
-        star += "<img src='images/bookworm.jpg' style='width:50px' />";
+        star += "<img src='https://ctecbooks3.s3.ap-southeast-1.amazonaws.com/images/bookworm.jpg' style='width:50px' />";
       }
       star +=
         "<i class='far fa-trash-alt fa-2x edit' data-dismiss='modal' item='" +
