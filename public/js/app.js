@@ -9,8 +9,8 @@ var currentIndex = 0;
 var comment_url = "/comments";
 var comment_array = []; // This creates an empty comment array
 
-var bookwormBWImage = 'images/bookworm_bw.jpg';
-var bookwormImage = 'images/bookworm.jpg';
+var bookwormBWImage = 'https://ctecbooks3.s3.ap-southeast-1.amazonaws.com/images/bookworm_bw.jpg';
+var bookwormImage = 'https://ctecbooks3.s3.ap-southeast-1.amazonaws.com/images/bookworm.jpg';
 var rating = 0;
 
 var profile = []
